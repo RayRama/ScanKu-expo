@@ -1,35 +1,37 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import colors from "../constants/colors";
-
-export const RowItem = ({ title, onPress, rightIcon }) => {
+export const RowItem = ({ title, onPress, leftIcon }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.row}>
-      <Text style={styles.title}>{title}</Text>
-      {rightIcon}
-    </TouchableOpacity>
+    <View style={{ width: "100%" }}>
+      <TouchableOpacity onPress={onPress} style={styles.row}>
+        {leftIcon}
+        <Text style={styles.title}>{title}</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
-export const RowSeparator () => <View style={styles.separator} />
+export const RowSeparator = () => <View style={styles.separator}></View>;
 
 const styles = StyleSheet.create({
   row: {
     paddingHorizontal: 20,
     paddingVertical: 16,
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: colors.white,
   },
   title: {
-    color: colors.text,
+    color: "#222",
     fontSize: 16,
+    marginHorizontal: 16,
+    textAlign: "left",
   },
   separator: {
-    backgroundColor: colors.border,
+    backgroundColor: "#222",
     height: StyleSheet.hairlineWidth,
-    marginLeft: 20,
+    width: "100%",
+    marginLeft: 25,
   },
-})
+});

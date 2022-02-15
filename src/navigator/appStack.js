@@ -7,7 +7,9 @@ import Home from "../screens/home";
 import CreateQR from "../screens/createQR";
 import History from "../screens/history";
 import Settings from "../screens/settings";
-import DetailQR from "../screens/detailQR";
+import DetailQR from "../screens/createQRDetail";
+import GenerateQR from "../screens/createQRGenerated";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,7 +24,26 @@ export default function AppStack() {
       <Stack.Screen name="CreateQR" component={CreateQR} />
       <Stack.Screen name="History" component={History} />
       <Stack.Screen name="Settings" component={Settings} />
-      <Stack.Screen name="DetailQR" component={DetailQR} />
+      <Stack.Screen
+        name="DetailQR"
+        component={DetailQR}
+        options={({ navigation, route }) => ({
+          headerShown: true,
+          headerTitle: "Text",
+          headerRight: () =>
+            route.params.data.length > 0 ? (
+              <View>
+                <TouchableOpacity
+                  onPress={() => navigation.push("GenerateQR")}
+                  style={{ marginHorizontal: 20 }}
+                >
+                  <Text>Create</Text>
+                </TouchableOpacity>
+              </View>
+            ) : null,
+        })}
+      />
+      <Stack.Screen name="GenerateQR" component={GenerateQR} />
     </Stack.Navigator>
   );
 }
@@ -30,7 +51,7 @@ export default function AppStack() {
 const MainApp = () => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
-      headerShown: false,
+      headerShown: true,
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
 
@@ -59,7 +80,15 @@ const MainApp = () => (
         unmountOnBlur: true,
       }}
     />
-    <Tab.Screen name="Create-QR" component={CreateQR} />
+    <Tab.Screen
+      name="Create-QR"
+      component={CreateQR}
+      options={{
+        headerShown: true,
+        headerTitle: "Create",
+        unmountOnBlur: true,
+      }}
+    />
     <Tab.Screen name="History" component={History} />
     <Tab.Screen name="Settings" component={Settings} />
   </Tab.Navigator>

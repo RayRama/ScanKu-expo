@@ -12,12 +12,17 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import BarcodeMask from "react-native-barcode-mask";
 import { Camera } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 
 const screen = Dimensions.get("window");
 
 export default function Home() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [image, setImage] = useState(null);
+  const [imageUri, setImageUri] = useState("");
+  const [widthImage, setWidthImage] = useState(0);
+  const [heightImage, setHeightImage] = useState(0);
   // const [type, setType] = useState(BarCodeScanner.Constants.Type);
 
   const askPermission = () => {
@@ -37,11 +42,13 @@ export default function Home() {
   const viewMinY = (screen.height - finderHeight) / 2;
 
   const handleBarCodeScanned = ({ type, data, bounds }) => {
-    console.log(bounds.origin);
+    // console.log(bounds.origin);
     if (bounds.origin.x >= viewMinX && bounds.origin.y >= viewMinY) {
       setScanned(true);
       alert(`Tipe barcode adalah ${type} dengan data berisi ${data}`);
     }
+    // BarCodeScanner.scanFromURLAsync(imageUri);
+    // alert(`Tipe barcode adalah ${type} dengan data berisi ${data}`);
   };
 
   if (hasPermission === null) {
@@ -74,9 +81,25 @@ export default function Home() {
     );
   }
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      setWidthImage(result.width);
+      setHeightImage(result.height);
+      setImageUri(result.uri);
+      alert(result.uri);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <FocusedStatusBar barStyle="dark-content" backgroundColor="transparent" />
+      <FocusedStatusBar barStyle="light-content" backgroundColor="#222" />
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={[StyleSheet.absoluteFillObject, styles.container]}
@@ -101,7 +124,7 @@ export default function Home() {
       <View style={[styles.bottomContainer, { flexDirection: "row" }]}>
         <TouchableOpacity
           style={{ marginHorizontal: 20 }}
-          onPress={() => alert("Test")}
+          onPress={() => pickImage()}
         >
           <Ionicons
             name="image"
