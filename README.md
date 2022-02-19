@@ -9,7 +9,7 @@ Aplikasi ini masih dalam tahap pengembangan dan mungkin terdapat beberapa minor 
 	 - [ ] Add flash functionality
  - [ ] Scan with image file
  - [x] QR Generator
-	 - [ ] From clipboard
-	 - [ ] From text
+	 - [x] From clipboard
+	 - [x] From text
 	 - [ ] From url
  - [ ] Auto dark mode
