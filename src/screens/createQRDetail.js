@@ -19,6 +19,7 @@ export default function DetailQR({ navigation, route = {} }) {
         placeholder="Hello, world!"
         value={textData}
         onChangeText={(value) => setTextData(value)}
+        autoFocus={true}
         // editable={createOptions === "Clipboard" ? false : true}
       />
     </View>

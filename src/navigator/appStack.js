@@ -34,7 +34,9 @@ export default function AppStack() {
             route.params.data.length > 0 ? (
               <View>
                 <TouchableOpacity
-                  onPress={() => navigation.push("GenerateQR")}
+                  onPress={() =>
+                    navigation.push("GenerateQR", { data: route.params.data })
+                  }
                   style={{ marginHorizontal: 20 }}
                 >
                   <Text>Create</Text>
@@ -43,7 +45,11 @@ export default function AppStack() {
             ) : null,
         })}
       />
-      <Stack.Screen name="GenerateQR" component={GenerateQR} />
+      <Stack.Screen
+        name="GenerateQR"
+        component={GenerateQR}
+        options={{ unmountOnBlur: true }}
+      />
     </Stack.Navigator>
   );
 }

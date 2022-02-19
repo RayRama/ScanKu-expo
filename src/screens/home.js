@@ -32,6 +32,14 @@ export default function Home() {
     })();
   };
   useEffect(() => {
+    // (async () => {
+    //   const { resultImage } = await BarCodeScanner.scanFromURLAsync(
+    //     imageUri,
+    //     barCodeTypes
+    //   );
+    //   alert(resultImage);
+    // })();
+    // pickImage();
     askPermission();
   }, []);
 
@@ -94,6 +102,13 @@ export default function Home() {
       setHeightImage(result.height);
       setImageUri(result.uri);
       alert(result.uri);
+      // (async () => {
+      //   const { resultImage } = await BarCodeScanner.scanFromURLAsync(
+      //     imageUri,
+      //     barCodeTypes
+      //   );
+      //   alert(resultImage);
+      // })();
     }
   };
 
